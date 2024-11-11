@@ -125,3 +125,61 @@ def translate(context: str, to_lang: str = "ru_RU") -> str:
     translated_text = translator(context, max_length=1500)[0]['translation_text']
     
     return translated_text
+
+
+def stream_get_gemini_greeting_response(user_input: str, context: List):
+    prompt = "Hi! Make sure that your greeting response is not longer than 2 sentences."
+
+    # Simulate a generator response (e.g., each part is generated over time)
+    try:
+        _response = model.generate_content(prompt, stream=True)  # Use `stream=True` if supported
+
+        # This loop would yield chunks of the generated response as they're produced.
+        for part in _response:
+            yield part.text  # Each part of the response
+
+    except Exception as e:
+        yield f"Error encountered: {e}"
+    
+def stream_get_first_recipes(user_input: str, context: List):
+    user_input = f"""You do not have to greet me again! 
+                Here is the list of the products that I have: 
+                {user_input}. 
+                Make sure your response is no longer than 300 words. 
+                Give me a list of 3 recipes that I can cook out of this. 
+                Give 1 easy and fast recipe, 1 middle difficulty recipe, and 1 vegan recipe. 
+                If it is impossible to create a vegan meal out of products you have, give 1 hard difficulty recipe."""
+    
+    chat = model.start_chat(history=context)
+    
+    try:
+        _response = chat.send_message(user_input)
+
+        # Assuming _response.candidates contain multiple parts to stream incrementally
+        for part in _response.candidates[0].content.parts:
+            # Yield each part text to stream as it comes
+            yield part.text
+
+    except Exception as e:
+        yield f"Failure: {e}"
+
+def stream_chatting(user_input: str, context: List):
+    # Start a new chat session with the provided context
+    chat = model.start_chat(history=context)
+    
+    # user_input = f"""
+    #     If I ask about modification of specific recipe, discuss only recipe that I mention!\n
+    #     {user_input}
+    # """
+    
+    try:
+        # Send the user input and receive the response as a stream
+        _response = chat.send_message(user_input)
+
+        # Assuming _response.candidates[0].content.parts contains multiple parts
+        for part in _response.candidates[0].content.parts:
+            # Yield each part of the text to stream it
+            yield part.text
+
+    except Exception as e:
+        yield f"Failure: {e}" 
