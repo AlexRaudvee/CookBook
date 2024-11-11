@@ -129,6 +129,7 @@ if page == "Main Chat":
 elif page == "Settings":
     # Language setting for model responses
     st.header("Settings")
+    st.warning("Still in the development")
     st.selectbox("Choose Language:", ["English", "Spanish", "French"], key="language")
 
 elif page == "About":
@@ -136,5 +137,5 @@ elif page == "About":
     st.header("About")
     st.write("This chat bot was created to assist users with recipe suggestions and general questions.")
     st.write("Connect with me:")
-    st.markdown("- [GitHub](https://github.com/your-profile)")
-    st.markdown("- [LinkedIn](https://www.linkedin.com/in/your-profile)")
+    st.markdown("- [GitHub](https://github.com/AlexRaudvee)")
+    st.markdown("- [LinkedIn](https://www.linkedin.com/in/aleksandr-raudvee-aaab6b285/)")
