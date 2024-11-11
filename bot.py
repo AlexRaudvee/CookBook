@@ -4,8 +4,7 @@ import logging
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from aiogram.enums import ParseMode
-from config import BOT_TOKEN
+from envvar import BOT_TOKEN
 from func import *
 
 # Configure logging

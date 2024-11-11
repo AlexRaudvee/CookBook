@@ -3,13 +3,13 @@ import google.generativeai as genai
 from transformers import pipeline
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-# HERE YOU HAVE TO SET UP YOUR CONFIGURATIONS
+from envvar import GEMINI_API_KEY
 
-BOT_TOKEN = 'your_token'
+# HERE YOU HAVE TO SET UP YOUR CONFIGURATIONS
 
 # MODEL CONFIGS
 
-genai.configure(api_key=f"your_token")
+genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel(model_name = "gemini-1.5-flash-002", 
                               safety_settings = {HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE, HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE},
