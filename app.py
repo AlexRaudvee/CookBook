@@ -29,6 +29,34 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+text_content = [
+    "Welcome to the CookBook Chat Bot! This bot is here to assist you with recipe ideas,",
+    "answer general cooking questions, and help you modify recipes to suit your preferences.",
+    "Here’s how to make the most out of your experience with this bot:\n",
+    "\n#### Step-by-Step Instructions",
+    "1. **Starting the Conversation**",
+    "- Begin by sending a greeting message (e.g., 'Hello,' 'Hi there!').",
+    "- The bot will respond with its own greeting, introducing itself and preparing for the conversation.",
+    "2. **Provide Your List of Ingredients**",
+    "- After the initial greeting, the next message should be a list of ingredients you have on hand.",
+    "- List each ingredient clearly to allow the bot to suggest recipes matching your available ingredients.",
+    "3. **Request Recipes Based on Your Ingredients**",
+    "- Once the bot has your ingredients, ask it to provide a set of recipes with varying complexity:",
+    "- One easy and fast recipe",
+    "- One moderately challenging recipe",
+    "- One vegan recipe (or a complex alternative if vegan isn't possible with your ingredients).",
+    "4. **Request Modifications or Additional Recipes**",
+    "- After receiving recipes, you may ask the bot for modifications (e.g., 'Can I make this gluten-free?'",
+    "  or 'What if I don't have eggs?') or request more recipes if you want additional options.",
+    "5. **Discuss Recipe Adjustments and Tips**",
+    "- The bot can assist with dietary restrictions, ingredient swaps, and cooking methods.",
+    "\n#### Important Usage Notes",
+    "- **Data Privacy**: Avoid sharing personal or sensitive information with the bot. Focus on recipes,",
+    "  cooking techniques, or ingredients only.",
+    "- **Development Notice**: This chatbot is in development. While it strives to be accurate, there",
+    "  may be occasional limitations or inconsistencies in responses.",
+]
+
 # Use st.markdown with custom CSS class instead of st.title to center it
 st.markdown("<h1 class='title'>Welcome to CookBook Chat Bot</h1>", unsafe_allow_html=True)
 
@@ -76,7 +104,7 @@ if page == "Main Chat":
                 - After receiving recipes, you may ask the bot for modifications (e.g., "Can I make this gluten-free?" or "What if I don't have eggs?") or request more recipes if you want additional options.
             5. Discuss Recipe Adjustments and Tips
                 - The bot can assist in adjusting recipes for dietary restrictions, ingredient swaps, and cooking methods. Use this function to discuss modifications or substitutions in detail.
-                
+            
             #### Important Usage Notes
                 - Data Privacy: To protect your privacy, do not share personal or sensitive information with the bot. Keep your questions focused on recipes, cooking techniques, or ingredients only.
                 - Development Notice: Please be aware that this chatbot is still in the development stage. While it strives to provide accurate and helpful information, there may be occasional limitations or inconsistencies in responses.

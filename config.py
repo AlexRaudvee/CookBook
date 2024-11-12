@@ -1,6 +1,5 @@
 import google.generativeai as genai
 
-from transformers import pipeline
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 from envvar import GEMINI_API_KEY
@@ -21,10 +20,3 @@ model = genai.GenerativeModel(model_name = "gemini-1.5-flash-002",
                                                     Make sure to use no more than 300 words per answer!
                                                     Make sure to support conversation only about food and recipes! Not something different"""
                              )
-
-
-
-
-
-# Initialize the translation pipeline
-translator = pipeline("translation_en_to_ru", model="Helsinki-NLP/opus-mt-en-ru")

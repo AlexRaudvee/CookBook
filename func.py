@@ -2,18 +2,29 @@
 import re
 import json
 
+import translators as ts
 import google.generativeai as genai
 
 from typing import List
 from typing_extensions import TypedDict
 from tqdm.notebook import tqdm
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
-from translate import Translator
-from config import model, translator
-
+from config import model
 
 ### CUSTOM FUNCTIONS ###
 
+def transform_text(text: str) -> str:
+    
+    # Replace single asterisks (*) with '>'
+    text = text.replace("* ", "- ")
+    # Replace double asterisks (**) with single asterisks (*)
+    text = text.replace("**", "*")
+    # Place a backslash before specific characters
+    characters_to_escape = ["(", ")", "[", "]", "{", "}", "-", ".", "!"]
+    for char in characters_to_escape:
+        text = text.replace(char, f"\\{char}")
+    
+    return text
 
 def get_gemini_greeting_response() -> str:
     prompt = (f"Hi!"
@@ -28,7 +39,7 @@ def get_gemini_greeting_response() -> str:
 
     except Exception as e:
         print(f"Error encountered: {e}")
-        return f"Failure: {e}"
+        return f"Failure: {e}", role
 
 def get_first_recipes(user_input: str, context: List):
             
@@ -50,7 +61,7 @@ def get_first_recipes(user_input: str, context: List):
 
         response = _response.candidates[0].content.parts[0].text
         role = "model"
-
+        
         return response, role, user_input, chat
 
     except Exception as e:
@@ -119,10 +130,10 @@ def photo_to_product_list(photo_path: str):
         return str(e), "user"
     
     
-def translate(context: str, to_lang: str = "ru_RU") -> str:
+def translate(context: str, to_lang: str = "ru") -> str:
 
     # Perform the translation
-    translated_text = translator(context, max_length=1500)[0]['translation_text']
+    translated_text = ts.translate_text(query_text=context, translator='yandex', to_language=to_lang)
     
     return translated_text
 
