@@ -130,12 +130,16 @@ def photo_to_product_list(photo_path: str):
         return str(e), "user"
     
     
-def translate(context: str, to_lang: str = "ru") -> str:
+def translate(context: str, html: bool = False, to_lang: str = "ru") -> str:
 
     # Perform the translation
-    translated_text = ts.translate_text(query_text=context, translator='yandex', to_language=to_lang)
+    if html:
+        translated_text = ts.translate_html(html_text=context, translator='yandex', to_language=to_lang)
+    else:
+        translated_text = ts.translate_text(query_text=context, translator='yandex', to_language=to_lang)
     
     return translated_text
+
 
 
 def stream_get_gemini_greeting_response(user_input: str, context: List):

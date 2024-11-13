@@ -3,6 +3,8 @@ import random
 import time
 from func import *
 
+LNG = 'en'
+
 # Add custom CSS to center the title
 st.markdown(
     """
@@ -10,13 +12,7 @@ st.markdown(
     .title {
         text-align: center;
     }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-st.markdown(
-    """
-    <style>
+    
     .header {
         text-align: center;
         font-size: 3rem; 
@@ -24,38 +20,13 @@ st.markdown(
         margin-top: 20px;
         margin-bottom: 20px;
     }
+    .center-text {
+                text-align: center;
+            }
     </style>
     """,
     unsafe_allow_html=True
 )
-
-text_content = [
-    "Welcome to the CookBook Chat Bot! This bot is here to assist you with recipe ideas,",
-    "answer general cooking questions, and help you modify recipes to suit your preferences.",
-    "Here’s how to make the most out of your experience with this bot:\n",
-    "\n#### Step-by-Step Instructions",
-    "1. **Starting the Conversation**",
-    "- Begin by sending a greeting message (e.g., 'Hello,' 'Hi there!').",
-    "- The bot will respond with its own greeting, introducing itself and preparing for the conversation.",
-    "2. **Provide Your List of Ingredients**",
-    "- After the initial greeting, the next message should be a list of ingredients you have on hand.",
-    "- List each ingredient clearly to allow the bot to suggest recipes matching your available ingredients.",
-    "3. **Request Recipes Based on Your Ingredients**",
-    "- Once the bot has your ingredients, ask it to provide a set of recipes with varying complexity:",
-    "- One easy and fast recipe",
-    "- One moderately challenging recipe",
-    "- One vegan recipe (or a complex alternative if vegan isn't possible with your ingredients).",
-    "4. **Request Modifications or Additional Recipes**",
-    "- After receiving recipes, you may ask the bot for modifications (e.g., 'Can I make this gluten-free?'",
-    "  or 'What if I don't have eggs?') or request more recipes if you want additional options.",
-    "5. **Discuss Recipe Adjustments and Tips**",
-    "- The bot can assist with dietary restrictions, ingredient swaps, and cooking methods.",
-    "\n#### Important Usage Notes",
-    "- **Data Privacy**: Avoid sharing personal or sensitive information with the bot. Focus on recipes,",
-    "  cooking techniques, or ingredients only.",
-    "- **Development Notice**: This chatbot is in development. While it strives to be accurate, there",
-    "  may be occasional limitations or inconsistencies in responses.",
-]
 
 # Use st.markdown with custom CSS class instead of st.title to center it
 st.markdown("<h1 class='title'>Welcome to CookBook Chat Bot</h1>", unsafe_allow_html=True)
@@ -69,59 +40,25 @@ with st.sidebar:
 if page == "Main Chat":
     # Show bot description if no messages yet
     if "messages" not in st.session_state or not st.session_state.messages:
-        st.markdown(
-            """
-            <style>
-            .center-text {
-                text-align: center;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+        intro_header = """<div class="center-text">Welcome to the CookBook Chat Bot! This bot is here to assist you with recipe ideas, 
+answer general cooking questions, and help you modify recipes to suit your preferences. 
+Here’s how to make the most out of your experience with this bot:</div>
+        
+#### Step-by-Step Instructions
+1. Starting the Conversation (by sending a greeting message e.g., "Hello," "Hi there!").
+2. Provide Your List of Ingredients (e.g., "I have chicken, onion, tomato, pasta...")
+3. Request Modifications or Additional Recipes(e.g., "Can I make this gluten-free?" or "What if I don't have eggs?") or request more recipes if you want additional options.
+4. Discuss Recipe Adjustments and Tips
 
-        st.markdown(
-            """            
-            <div class="center-text">
-                Welcome to the CookBook Chat Bot! This bot is here to assist you with recipe ideas, 
-                answer general cooking questions, and help you modify recipes to suit your preferences. 
-                Here’s how to make the most out of your experience with this bot:
-            </div>
+#### Important Usage Notes
+- Data Privacy: To protect your privacy, do not share personal or sensitive information with the bot. Keep your questions focused on recipes, cooking techniques, or ingredients only.
+- Development Notice: Please be aware that this chatbot is still in the development stage. While it strives to provide accurate and helpful information, there may be occasional limitations or inconsistencies in responses.
+        """
             
-            #### Step-by-Step Instructions
-            1. Starting the Conversation
-                - Begin by sending a greeting message (e.g., "Hello," "Hi there!").
-                - The bot will respond with its own greeting, introducing itself and preparing for the conversation.
-            2. Provide Your List of Ingredients
-                - After the initial greeting, the next message should be a list of ingredients you have on hand.
-                - List each ingredient clearly, and avoid extra information for the best results. This allows the bot to suggest recipes that match your available ingredients.
-            3. Request Recipes Based on Your Ingredients
-                - Once the bot has your ingredients, ask it to provide a set of recipes that you can make. The bot is designed to give you options that vary in complexity, including:
-                - One easy and fast recipe
-                - One moderately challenging recipe
-                - One vegan recipe (or a more complex option if a vegan recipe isn't possible with your ingredients)
-            4. Request Modifications or Additional Recipes
-                - After receiving recipes, you may ask the bot for modifications (e.g., "Can I make this gluten-free?" or "What if I don't have eggs?") or request more recipes if you want additional options.
-            5. Discuss Recipe Adjustments and Tips
-                - The bot can assist in adjusting recipes for dietary restrictions, ingredient swaps, and cooking methods. Use this function to discuss modifications or substitutions in detail.
-            
-            #### Important Usage Notes
-                - Data Privacy: To protect your privacy, do not share personal or sensitive information with the bot. Keep your questions focused on recipes, cooking techniques, or ingredients only.
-                - Development Notice: Please be aware that this chatbot is still in the development stage. While it strives to provide accurate and helpful information, there may be occasional limitations or inconsistencies in responses.
-            """,
-            unsafe_allow_html=True
-        )
-    
-    # Streamed response emulator
-    def response_generator():
-        response = random.choice([
-            "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?"
-        ])
-        for word in response.split():
-            yield word + " "
-            time.sleep(0.05)
+        if LNG == 'ru':
+            intro_header = translate(context=intro_header, html=True, to_lang='ru')
+        
+        st.markdown(f"{intro_header}", unsafe_allow_html=True)
 
     # Initialize chat history
     if "messages" not in st.session_state:
@@ -158,7 +95,6 @@ elif page == "Settings":
     # Language setting for model responses
     st.header("Settings")
     st.warning("Still in the development")
-    st.selectbox("Choose Language:", ["English", "Spanish", "French"], key="language")
 
 elif page == "About":
     # Links to GitHub and LinkedIn

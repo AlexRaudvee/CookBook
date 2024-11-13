@@ -77,9 +77,9 @@ async def send_welcome(message: types.Message):
 @dp.message(Command("start"))
 async def send_welcome(message: types.Message):
     
-    en_intro = """*Welcome to CookBook Telegram Bot* \nHere is the list of comands that bot supports \\(you can find all of them in the MENU tab\\):\n1\\. /start \\- command that resets the bot and start from the ground \n2\\. /cook \\- start the conversation with the bot \n2\\. /help \\- get the list of all commands \n3\\. /language \\- change the language / сменить язык \n"""
+    en_intro = """*Welcome to CookBook Telegram Bot* \n\nHere is the list of comands that bot supports \\(you can find all of them in the MENU tab\\):\n1\\. /start \\- command that resets the bot and start from the ground \n2\\. /cook \\- start the conversation with the bot \n3\\. /help \\- get the list of all commands \n4\\. /language \\- change the language / сменить язык \n"""
     
-    ru_intro = """*Добро пожаловать в CookBook Telegram Бот* \nНиже расположены главные команды для начала работы с ботом \\(вы можете найти все команды в вкладке МЕНЮ\\):\n1\\. /start \\- полная перезагрузка бота. \n2\\. /cook \\- начать общение с ботом \n2\\. /help \\- получить лист всех доступных комманд \n3\\. /language \\- change the language / сменить язык \n"""
+    ru_intro = """*Добро пожаловать в CookBook Telegram Бот* \n\nНиже расположены главные команды для начала работы с ботом \\(вы можете найти все команды в вкладке МЕНЮ\\):\n1\\. /start \\- полная перезагрузка бота \n2\\. /cook \\- начать общение с ботом \n3\\. /help \\- получить лист всех доступных комманд \n4\\. /language \\- change the language / сменить язык \n"""
     
     if LNG=='ru':
         prompt = ru_intro
