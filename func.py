@@ -78,9 +78,7 @@ def chatting(user_input: str, context: List):
         response = _response.candidates[0].content.parts[0].text
         role = "model"
         
-        print("\n\n\n\n\n")
-        print(_response)
-        print()
+
         return response, role, user_input, chat
 
     except Exception as e:

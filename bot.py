@@ -41,18 +41,22 @@ async def set_language(message: types.Message):
 async def send_random_value(callback: types.CallbackQuery):
     global LNG
     LNG = 'en'
+    await callback.answer()  # Acknowledging the callback
+    await callback.message.answer("Language changed to English")
     
 @dp.callback_query(F.data == "ru")
 async def send_random_value(callback: types.CallbackQuery):
     global LNG
     LNG = 'ru'
+    await callback.answer()  # Acknowledging the callback
+    await callback.message.answer("Язык изменен на Русский")
 
 
 # COMMANDS
 
 
 @dp.message(Command("cook"))
-async def send_welcome(message: types.Message):
+async def greeting(message: types.Message):
     
     gret_resp, role = get_gemini_greeting_response()
     
@@ -144,8 +148,8 @@ async def handle_photo(message: types.Message):
         response = translate(response)
         
     response = transform_text(response)
-    print(response)
     
+    print(CONTEXT)    
     await message.answer(response, parse_mode="MarkdownV2")
         
     # else: 
@@ -190,6 +194,8 @@ async def echo(message: types.Message):
         response = transform_text(response)
         
         await message.answer(response, parse_mode="MarkdownV2")
+        
+    print(CONTEXT)
         
 async def main():
     
