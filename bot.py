@@ -38,14 +38,14 @@ async def set_language(message: types.Message):
     )
 
 @dp.callback_query(F.data == "en")
-async def send_random_value(callback: types.CallbackQuery):
+async def lang_change(callback: types.CallbackQuery):
     global LNG
     LNG = 'en'
     await callback.answer()  # Acknowledging the callback
     await callback.message.answer("Language changed to English")
     
 @dp.callback_query(F.data == "ru")
-async def send_random_value(callback: types.CallbackQuery):
+async def lang_change(callback: types.CallbackQuery):
     global LNG
     LNG = 'ru'
     await callback.answer()  # Acknowledging the callback
